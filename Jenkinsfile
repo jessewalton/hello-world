@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Check-Env') {
           steps {
-            echo $PATH
+            echo "${env.PATH}"
           }
         }
         stage('Lint') {
