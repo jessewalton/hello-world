@@ -1,25 +1,43 @@
 pipeline {
-  agent any
+    agent any
 
-  stages {
-    
-    stage("build") {
-      steps {
-        echo 'building the application...'
-      }
+    environment {
+     	GOPATH = "/home/vagrant/go"
+      PATH = "${env.PATH}:/usr/local/go/bin:/home/vagrant/go/bin"
     }
 
-    stage("test") {
-      steps {
-        echo 'testing the application...'
-      }
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Check-Env') {
+          steps {
+            echo "${env.PATH}"
+          }
+        }
+        stage('Lint') {
+            steps {
+                //sh 'go get -u golang.org/x/lint/golint'
+                sh 'golint ./...'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'go test ./...'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'go build -o hello-world'
+            }
+        }
     }
-
-    stage("deploy") {
-      steps {
-        echo 'deploying the application...'
-      }
+    post {
+        always {
+            archiveArtifacts artifacts: 'hello-world', fingerprint: true
+        }
     }
-
-  }
 }
+
