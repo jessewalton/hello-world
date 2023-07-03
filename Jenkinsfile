@@ -1,5 +1,16 @@
+    
+
+
+
 pipeline {
-    agent any
+    //agent any
+
+		agent {
+    	docker {
+      	image 'golang:1.17' // replace with your Go version
+        args '-v /root/.cache:/root/.cache' // cache go build to speed up
+      }
+    }
 
     environment {
      	GOPATH = "/home/vagrant/go"
