@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Lint') {
             steps {
-                sh 'go get -u golang.org/x/lint/golint'
+                //sh 'go get -u golang.org/x/lint/golint'
                 sh 'golint ./...'
             }
         }
