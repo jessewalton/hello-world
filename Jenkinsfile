@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-      PATH = "${env.PATH}:/usr/local/go/bin"
+     	GOPATH = "/home/vagrant/go"
+      PATH = "${env.PATH}:/usr/local/go/bin:/home/vagrant/go/bin"
     }
 
     stages {
