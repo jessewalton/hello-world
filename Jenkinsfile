@@ -1,10 +1,20 @@
 pipeline {
     agent any
+
+    environment {
+      PATH = $PATH:/usr/local/go/bin  
+    }
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
+        }
+        stage('Check-Env') {
+          steps {
+            echo $PATH
+          }
         }
         stage('Lint') {
             steps {
