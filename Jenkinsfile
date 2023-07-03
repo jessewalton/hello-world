@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'golang:1.17' // replace with your Go version
-            args '-v /root/.cache:/root/.cache' // cache go build to speed up
-        }
-    }
+    agent any
     stages {
         stage('Checkout') {
             steps {
